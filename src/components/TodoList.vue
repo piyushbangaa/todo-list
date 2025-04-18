@@ -23,7 +23,3 @@
   };
   </script>
   
-  <style scoped>
-  /* Any styling if needed */
-  </style>
-  
