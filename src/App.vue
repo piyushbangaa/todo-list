@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      tasks: [],
+      tasks: this.loadTasks(),
       today: new Date().toLocaleDateString('en-GB', {
         weekday: 'long',
         day: '2-digit',
@@ -39,18 +39,32 @@ export default {
     };
   },
   methods: {
+
+    loadTasks() {
+      const tasks = JSON.parse(localStorage.getItem('tasks'));
+      return tasks ? tasks : [];
+    },
+
+    saveTasks() {
+      localStorage.setItem('tasks', JSON.stringify(this.tasks));
+    },
+
     addTask(task) {
-      console.log('Task added:', task);
       this.tasks.push({
         ...task,
         completed: false,
       });
+      this.saveTasks(); 
     },
+
     toggleComplete(task) {
       task.completed = !task.completed;
+      this.saveTasks(); 
     },
+
     deleteTask(task) {
       this.tasks = this.tasks.filter((t) => t !== task);
+      this.saveTasks(); 
     },
   },
 };
