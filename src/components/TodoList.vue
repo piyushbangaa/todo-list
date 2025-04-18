@@ -1,9 +1,9 @@
 <template>
-    <div class="mt-4 max-h-72 overflow-y-auto pr-3 ">
+    <div class="mt-4 max-h-72 pr-2 ">
       <TodoItem
-        v-for="(task, index) in tasks"
+        v-for="(task,index) in tasks"
         :key="index"
-        :task="task"
+     :task="task"
         @toggle-complete="$emit('toggle-complete', task)"
         @delete-task="$emit('delete-task', task)"
       />
@@ -22,4 +22,3 @@
     },
   };
   </script>
-  

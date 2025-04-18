@@ -1,8 +1,8 @@
 <template>
   <div class="min-h-screen bg-neutral-800 flex items-center justify-center px-4">
-    <div class="w-140 rounded-2xl bg-neutral-700/70 backdrop-blur-lg shadow-xl p-6 text-white h-150">
-      <h1 class="text-3xl font-bold mb-1">Today's Tasks</h1>
-      <p class="text-sm text-gray-300 mb-6">{{ today }}</p>
+    <div class="w-140 rounded-2xl bg-neutral-700/70 backdrop-blur-lg shadow-xl p-6 text-white h-150 overflow-y-auto">
+      <h1 class="text-4xl font-bold mb-1 opacity-90">Today's Tasks</h1>
+      <p class="text-xl text-gray-300 mb-6">{{ today }}</p>
 
       <TodoInput @add-task="addTask" />
 
@@ -20,7 +20,7 @@
       </div>
 
       <h2 class="text-2xl font-semibold mt-4 opacity-80">Completed Tasks</h2>
-      <div class="max-h-72 overflow-y-auto">
+      <div class="max-h-72 ">
         <TodoList
           :tasks="completedTasks"
           @toggle-complete="toggleComplete"
