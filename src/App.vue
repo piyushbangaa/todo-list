@@ -1,19 +1,36 @@
 <template>
   <div class="min-h-screen bg-neutral-800 flex items-center justify-center px-4">
-    <div class="w-full max-w-md rounded-2xl bg-neutral-700/70 backdrop-blur-lg shadow-xl p-6 text-white h-130">
+    <div class="w-140 rounded-2xl bg-neutral-700/70 backdrop-blur-lg shadow-xl p-6 text-white h-150">
       <h1 class="text-3xl font-bold mb-1">Today's Tasks</h1>
       <p class="text-sm text-gray-300 mb-6">{{ today }}</p>
 
       <TodoInput @add-task="addTask" />
 
-      <TodoList
-        :tasks="tasks"
-        @toggle-complete="toggleComplete"
-        @delete-task="deleteTask"
-      />
+      <h2 class="text-2xl font-semibold mt-6 opacity-80">Active Tasks</h2>
+      <div class="max-h-72 overflow-y-auto">
+        <div v-if="activeTasks.length === 0" class="text-gray-400 text-center mt-3">
+          There are no active tasks.
+        </div>
+        <TodoList
+          v-else
+          :tasks="activeTasks"
+          @toggle-complete="toggleComplete"
+          @delete-task="deleteTask"
+        />
+      </div>
+
+      <h2 class="text-2xl font-semibold mt-4 opacity-80">Completed Tasks</h2>
+      <div class="max-h-72 overflow-y-auto">
+        <TodoList
+          :tasks="completedTasks"
+          @toggle-complete="toggleComplete"
+          @delete-task="deleteTask"
+        />
+      </div>
     </div>
   </div>
 </template>
+
 
 <script>
 import TodoInput from './components/TodoInput.vue';
@@ -38,8 +55,15 @@ export default {
       }),
     };
   },
+  computed: {
+    activeTasks() {
+      return this.tasks.filter(task => !task.completed);
+    },
+    completedTasks() {
+      return this.tasks.filter(task => task.completed);
+    }
+  },
   methods: {
-
     loadTasks() {
       const tasks = JSON.parse(localStorage.getItem('tasks'));
       return tasks ? tasks : [];
@@ -54,17 +78,17 @@ export default {
         ...task,
         completed: false,
       });
-      this.saveTasks(); 
+      this.saveTasks();
     },
 
     toggleComplete(task) {
       task.completed = !task.completed;
-      this.saveTasks(); 
+      this.saveTasks();
     },
 
     deleteTask(task) {
-      this.tasks = this.tasks.filter((t) => t !== task);
-      this.saveTasks(); 
+      this.tasks = this.tasks.filter(t => t !== task);
+      this.saveTasks();
     },
   },
 };

@@ -5,7 +5,7 @@
         type="checkbox"
         :checked="task.completed"
         @change="$emit('toggle-complete', task)"
-  class="mr-2 w-5 h-5 appearance-none rounded-full border border-indigo-500 
+  class="mr-2 w-6 h-6 appearance-none rounded-full border border-indigo-500 
          checked:bg-indigo-500  focus:outline-none 
          focus:ring focus:ring-indigo-400 transition"
  />
